@@ -7,6 +7,10 @@ const less = require('gulp-less');
 const cssmin = require('gulp-clean-css');
 const sourceMap = require('gulp-sourcemaps');
 
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+
+
 const clean = require('gulp-clean');
 const sequence = require('gulp-sequence');
 
@@ -28,8 +32,9 @@ gulp.task('clean', function () {
 	], {read: false})
     .pipe(clean({force: true}));
 })
-gulp.task('concat',function() {
-    gulp.src(basePath + '/*.html')
+
+gulp.task('concat',function() { //组件之间调用fragment文件夹下
+    gulp.src(basePath + '/**/*.html')
         .pipe(contentIncluder({
             includerReg:/<!\-\-include\s+"([^"]+)"\-\->/g
         }))
@@ -40,26 +45,28 @@ gulp.task("server",function(){
 	//静态服务器
     browserSync.init({
         server: {
-            baseDir: outPath,
-            port: 3000
+            baseDir: 'htmlsrc',
+            port: 7080
         }
     });
 });
 // 生成map，less转为css，css压缩，输出
 gulp.task('less', function () {
-    gulp.src('less/index.less')
+    gulp.src(basePath + '/less/index.less')
     	.pipe(sourceMap.init())
         .pipe(less())
+        .pipe(postcss([autoprefixer(['iOS >= 7', 'Android >= 4.1'])]))
         .pipe(sourceMap.write())
         .pipe(cssmin())
-        .pipe(gulp.dest('style'));
+        .pipe(gulp.dest(basePath +'/style'));
 });
 // 监听到less变化后，执行less
 gulp.task('dev-watch', function () { //观察变动  将less跑起来
 	gulp.watch(basePath+'/less/**/*.less', ['less']);
     gulp.watch(basePath+'/**/*.html', ['concat']);
+    gulp.watch(basePath+'/**/*', ['move']);
 });
-// 将 src 移动到 dist 生成 静态页面 
+// 将 src 移动到 htmldist 生成 静态页面 
 gulp.task('move',  function() {
   return gulp.src([
         basePath + '/favicon.ico',

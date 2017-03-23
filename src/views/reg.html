@@ -1,0 +1,72 @@
+<html>
+<head>
+	<title>注册</title>
+	<!--include "../tragment/meta.html"-->
+	<link rel="stylesheet" type="text/css" href="../style/index.css">
+</head>
+<body>
+   
+<div class="weui-cells">
+	<div class="weui-cell center">
+        <div class="weui-cell__hd">
+            <label class="weui-label">您的朋友</label>
+        </div>
+        <div class="weui-cell__bd">                    
+            如摄 a13233241343
+        </div>
+    </div>
+    <div class="weui-cell weui-cell_vcode center">
+        <div class="weui-cell__hd">
+            <label class="weui-label">手机号码</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="tel" pattern="[0-9]*" placeholder="请输入手机号">
+        </div>
+        <div class="weui-cell__ft">
+            <button class="weui-vcode-btn">获取验证码</button>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入验证码">
+        </div>
+    </div>
+</div>	   
+<div class="weui-panel weui-panel_access">
+	<div class="weui-panel__hd">请添加不少于5个标签 <i>多个标签请用英文逗号（,）分开</i></div>
+    <div class="weui-cell weui-cell_vcode center">
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="tel" placeholder="请输入标签">
+        </div>
+        <div class="weui-cell__ft">
+            <button class="weui-vcode-btn">　添加　</button>
+        </div>
+    </div>
+</div>
+<!--include "../tragment/mTagList.html"-->  
+<div class=" weui-btn-fixed">
+    <a href="javascript:;" class="weui-btn weui-btn_primary js_reg">注册</a>
+</div>
+
+<script type="text/template" id="publishTpl">
+<!--include "../tragment/dRegSuc.html"-->
+</script>
+<script type="text/javascript" src="../js/zepto.js"></script>
+<script type="text/javascript" src="../js/doT.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    $('.js_reg').on('click', function(){        
+        var tpl = doT.template($('#publishTpl').html());
+        $('body').append(tpl());
+
+        $('.js_cancle').on('click', function(){
+            
+            $('.js_dialog').hide('slow');
+        });
+    });
+
+});
+</script>
+</body>
+</html>

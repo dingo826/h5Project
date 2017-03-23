@@ -1,0 +1,136 @@
+<html>
+<head>
+	<title>推荐详情</title>
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="HandheldFriendly" content="true" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="format-detection" content="telephone=no" />
+	<link rel="stylesheet" type="text/css" href="../style/index.css">
+</head>
+<body>
+<div class="js-view"></div>   	
+<script type="text/template" id="viewTpl">
+    <div class="weui-panel weui-panel_access">
+        <div class="weui-panel__bd ">
+        <div class="weui-media-box weui-media-box_appmsg">
+            <div class="weui-media-box__hd">
+                <div class="ask">问</div>
+            </div>
+            <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title">{{=it.demand.title}}<i>{{=it.demand.commissionNumber}}元</i> </h4>
+                <time class="weui-media-box__time">{{=it.demand.createTime.split(' ')[0]}}</time>
+                <p class="weui-media-box__desc">{{=it.demand.demandContent}}</p>
+            </div>
+            {{? it.demand.status == 2 }}
+                已完成
+            {{?}}
+        </div>
+        {{? it.recommend != null}}
+        <div  class="weui-media-box weui-media-box_appmsg">
+            <div class="weui-media-box__hd">
+                <div class="bik">答</div>
+            </div>
+            <div class="weui-media-box__bd">                
+                <p class="weui-media-box__desc">
+                    {{=it.recommend.recommendContent}}
+                    {{? it.recommend.status == 1 }}
+                        <span class="status1">中标</span>
+                    {{?}}
+                    {{? it.recommend.status == 2 }}
+                        <span class="status2">靠谱</span>
+                    {{?}}
+                    {{? it.recommend.status == 3 }}
+                        <span class="status3">谢谢</span>
+                    {{?}}
+                </p>
+            </div>
+        </div>
+        {{?}}
+        </div>   
+    </div>
+
+    {{? it.recommend == null}}
+    <div class="weui-panel weui-panel_access">    
+        <div class="weui-cells__title">我要推荐</div>
+        <div class="weui-cells weui-cells_form">        
+            <div class="weui-cell">
+                <div class="weui-cell__bd js-counter">
+                    <textarea class="weui-textarea js-content" name="content" placeholder="请输入推荐内容" rows="8" ></textarea>
+                    <div class="weui-textarea-counter"><span>0</span>/200</div>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div class=" weui-btn-fixed">
+        <a href="javascript:void(0)" class="weui-btn weui-btn_primary js_publish">向他推荐</a>
+    </div>
+    {{??}}  
+    <div class="weui-panel">
+        <div class="js_commentwrap"></div>
+    </div> 
+    {{?}}     
+</script> 
+<script type="text/template" id="commentViewTpl">
+    <div class="weui-panel__hd"><span class="js_commentLens">{{=it.total}}</span>条评论</div>
+    <div class="weui-panel__bd">
+        <div class="weui-media-box ">
+            <div class="inputP input-content">
+                <div class="input-content-btn">
+                    <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default js_inputcontent_cancle">取消</a>
+                    <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary js_commentSubmit">评论</a>
+                </div>
+                <p contenteditable="true" class="inputP js_inputcontent" name="commentContent"></p>
+                <label class="input-content-label js_label">我也来评论一句</lable>                
+            </div>
+        </div>
+    </div>
+    <div class="weui-panel__bd js-wrapper">
+        {{~it.result:v:index}}
+        <div class="weui-media-box weui-media-box_appmsg">
+            <div class="weui-media-box__hd">
+                <img class="weui-media-box__thumb" 
+                {{? v.headImgUrl == null || v.headImgUrl == ''}}
+                src="../images/user.jpg"
+                {{??}}
+                src="{{=v.headImgUrl}}"
+                {{?}}
+                >
+            </div>
+            <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title">
+                    {{=v.commentUserName}}<em>{{=v.createTime.split(' ')[0]}}</em></h4>
+                <p class="weui-media-box__desc">{{=v.commentContent}}</p>
+            </div>
+        </div>  
+        {{~}}
+    </div>
+</script>
+<script type="text/template" id="commentViewSingleTpl">
+     {{~it:v:index}}
+        <div class="weui-media-box weui-media-box_appmsg">
+            <div class="weui-media-box__hd">
+                <img class="weui-media-box__thumb" 
+                {{? v.headImgUrl == null || v.headImgUrl == ''}}
+                src="../images/user.jpg"
+                {{??}}
+                src="{{=v.headImgUrl}}"
+                {{?}}
+                >
+            </div>
+            <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title">
+                    {{=v.commentUserName}}<em>{{=v.createTime.split(' ')[0]}}</em></h4>
+                <p class="weui-media-box__desc">{{=v.commentContent}}</p>
+            </div>
+        </div>  
+        {{~}}
+</script>
+<script type="text/javascript" src="../js/assets/jquery2.1.4.js"></script>
+<script type="text/javascript" src="../js/assets/sea.min.js"></script>
+<script type="text/javascript" src="../js/common/sea.config.js"></script>
+<script type="text/javascript">
+    seajs.use('../js/app/recommendView.js');
+</script>
+</body>
+</html>

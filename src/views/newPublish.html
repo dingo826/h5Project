@@ -1,0 +1,44 @@
+<html>
+<head>
+	<title>首页</title>
+	<!--include "../tragment/meta.html"-->
+	<link rel="stylesheet" type="text/css" href="../style/index.css">
+</head>
+<body>
+    <div class="weui-cells__title">请正确填写发布内容</div>
+	<div class="weui-cells weui-cells_form">        
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">题目</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="text" maxlength="14" placeholder="请输入题目">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label for="" class="weui-label">内容</label></div>
+            <div class="weui-cell__bd js-counter">
+                <textarea class="weui-textarea" placeholder="请输入文本" rows="10" max-length="12"></textarea>
+                <div class="weui-textarea-counter"><span>0</span>/200</div>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label for="" class="weui-label">佣金</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" value="" placeholder="请输入佣金">
+            </div>
+        </div>
+    </div>
+    <div class=" weui-btn-fixed">
+        <a href="javascript:;" class="weui-btn weui-btn_primary js_publish">发布</a>
+    </div>
+    <script type="text/template" id="publishTpl">
+    <!--include "../tragment/dPublishSuc.html"-->
+    </script>
+<script type="text/javascript" src="../js/assets/zepto.js"></script>
+<script type="text/javascript" src="../js/assets/sea.min.js"></script>
+<script type="text/javascript" src="../js/common/sea.config.js"></script>
+<script type="text/javascript">
+    seajs.use('../js/app/newPublish.js');
+</script>
+
+</body>
+</html>

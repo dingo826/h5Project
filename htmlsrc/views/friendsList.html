@@ -1,0 +1,66 @@
+<html>
+<head>
+	<title>好友管理</title>
+	<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="format-detection" content="telephone=no" />
+	<link rel="stylesheet" type="text/css" href="../style/index.css">
+</head>
+<body>
+<div class="js_wrapper">
+</div>
+<script type="text/template" id="listTpl">
+    {{~it:v:index}}
+    <div class="weui-panel">
+	    <div class="weui-panel__bd">
+	        <div href="info.html" class="weui-media-box weui-media-box_appmsg">
+	            <div class="weui-media-box__hd">
+	                <img class="weui-media-box__thumb" 
+                    {{? v.headImgUrl == null || v.headImgUrl == ''}}
+                    src="../images/user.jpg"
+                    {{??}}
+                    src="{{=v.headImgUrl}}"
+                    {{?}}
+                    alt="">
+	            </div>
+	            <div class="weui-media-box__bd">
+	                <h4 class="weui-media-box__title"> 
+	                	{{=v.friendName}}
+	        			<i>已赚取{{=v.commission}}元</i>
+	        		</h4>
+	        		{{? v.tags.length != 0 || v.impressions.length != 0}}
+	                <p>
+	                	{{~v.tags:vt}}
+	                	<i class="weui-btn weui-btn_mini weui-btn_default">
+				            {{=vt}} 
+				        </i>
+				        {{~}}
+				        {{~v.impressions:vi}}
+				        	<i class="weui-btn weui-btn_mini weui-btn_default">
+				        	{{=vi.impressionName}} {{=vi.impressionCount}} 
+				        	</i>
+				        {{~}}
+	                </p>
+	                {{?}}
+	            </div>
+	        </div>        
+	    </div>
+	    <div class="weui-panel__br"><div></div></div>
+	    <div class="weui-panel__ft btn__ft">
+	        <a href="friendTag.html" class="weui-btn weui-btn_mini weui-btn_primary">
+	            给好友贴标签
+	        </a>
+	    </div>
+	</div>
+    {{~}}
+</script>
+<script type="text/javascript" src="../js/assets/jquery2.1.4.js"></script>
+<script type="text/javascript" src="../js/assets/sea.min.js"></script>
+<script type="text/javascript" src="../js/common/sea.config.js"></script>
+<script type="text/javascript">
+    seajs.use('../js/app/friendList.js');
+</script>
+</body>
+</html>

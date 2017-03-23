@@ -1,0 +1,36 @@
+<html>
+<head>
+	<title>发布详情</title>
+	<!--include "../tragment/meta.html"-->
+	<link rel="stylesheet" type="text/css" href="../style/index.css">
+</head>
+<body>
+	
+    <div class="weui-panel weui-panel_access">
+    <div class="weui-panel__bd">
+        <!--include "../tragment/mReleaseAsk.html"-->
+        <!--include "../tragment/mReleaseBik.html"-->
+        <!--include "../tragment/mReleasePg.html"-->
+       
+        
+    </div>
+</div>
+ <!--include "../tragment/mReleaseComment.html"-->
+<script type="text/javascript" src="../js/zepto.js"></script>
+<script type="text/javascript" src="../js/doT.min.js"></script>
+<script type="text/javascript">
+$(function(){ 
+    $('.js_publish').on('click', function(){        
+        var tpl = doT.template($('#publishTpl').html());
+        $('body').append(tpl());
+    
+        $('.js_cancle').on('click', function(){ 
+            
+            $('.js_dialog').hide('slow');
+        });
+    });  
+
+});
+</script>
+</body>
+</html>

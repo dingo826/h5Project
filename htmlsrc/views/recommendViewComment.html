@@ -1,0 +1,92 @@
+<html>
+<head>
+	<title>推荐详情</title>
+	<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="format-detection" content="telephone=no" />
+	<link rel="stylesheet" type="text/css" href="../style/index.css">
+</head>
+<body>
+<div class="weui-panel weui-panel_access">
+    <div class="weui-panel__bd">
+        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+    <div class="weui-media-box__hd">
+        <div class="ask">问</div>
+    </div>
+    <div class="weui-media-box__bd">
+        <h4 class="weui-media-box__title">【找钢琴老师】<i>500元</i> </h4>
+        <time class="weui-media-box__time">2017-03-03</time>
+        <p class="weui-media-box__desc">需要一位30岁左右的钢琴老师，会英语沟通，上课地点在文二西路88号附近需要一位30岁左右的钢琴老师，会英语沟通，上课地点在文二西路88号附近</p>
+    </div>
+</a> 
+        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+    <div class="weui-media-box__hd">
+        <div class="bik">答</div>
+    </div>
+    <div class="weui-media-box__bd">                
+        <p class="weui-media-box__desc">梁老师，女，电话13455454554，钢琴五级，我儿子3年级开始的钢琴老师，很负责。</p>
+    </div>
+</a> 
+        <div class="weui-media-box weui-media-box_appmsg">
+    <div>详情评估</div>
+    <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">靠谱</a>
+    <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">中标</a>
+    <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">谢谢</a>
+</div> 
+    </div> 
+</div>
+<div class="weui-panel">
+    <div class="weui-panel__hd">全部3条评论</div>
+    <div class="weui-panel__bd">
+        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+            <div class="weui-media-box__hd">
+                <img class="weui-media-box__thumb" src="../images/user.jpg">
+            </div>
+            <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title">推**<em>2017-03-03</em></h4>
+                <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+            </div>
+        </a>
+        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+            <div class="weui-media-box__hd">
+                <img class="weui-media-box__thumb" src="../images/userMy.jpg">
+            </div>
+            <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title">我**<em>2017-03-03</em></h4>
+                <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+            </div>
+        </a>   
+    </div>
+    <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <textarea class="weui-textarea" placeholder="请输入评论" rows="3"></textarea>
+                    <div class="weui-textarea-counter"><span>0</span>/200</div>
+                </div>
+            </div>
+        </div>
+    <div class="weui-panel__ft btn__ft">
+        <a href="recommendViewComment.html" class="weui-btn weui-btn_primary js_publish">我要评论</a>
+    </div>
+
+</div>	 
+<script type="text/javascript" src="../js/zepto.js"></script>
+<script type="text/javascript" src="../js/doT.min.js"></script>
+<script type="text/javascript">
+$(function(){ 
+    $('.js_publish').on('click', function(){        
+        var tpl = doT.template($('#publishTpl').html());
+        $('body').append(tpl());
+    
+        $('.js_cancle').on('click', function(){ 
+            
+            $('.js_dialog').hide('slow');
+        });
+    });  
+
+});
+</script>
+</body>
+</html>

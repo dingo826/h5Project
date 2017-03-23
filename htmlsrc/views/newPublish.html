@@ -1,0 +1,59 @@
+<html>
+<head>
+	<title>首页</title>
+	<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="format-detection" content="telephone=no" />
+	<link rel="stylesheet" type="text/css" href="../style/index.css">
+</head>
+<body>
+    <div class="weui-cells__title">请正确填写发布内容</div>
+	<div class="weui-cells weui-cells_form">        
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">题目</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="text" maxlength="14" placeholder="请输入题目" name="title">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label for="" class="weui-label">内容</label></div>
+            <div class="weui-cell__bd js-counter">
+                <textarea class="weui-textarea js-content" name="demandContent" placeholder="请输入文本" rows="10"></textarea>
+                <div class="weui-textarea-counter"><span>0</span>/200</div>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label for="" class="weui-label">佣金</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" value="" placeholder="请输入佣金" name="commissionNumber">
+            </div>
+        </div>
+    </div>
+    <div class="weui-form weui-cell_warn"></div>
+    <div class=" weui-btn-fixed">
+        <a href="javascript:;" class="weui-btn weui-btn_primary js_publish">发布</a>
+    </div>
+    <script type="text/template" id="publishTpl">
+    <div class="js_dialog" id="iosDialog1">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog">
+        <div class="weui-dialog__hd"><strong class="weui-dialog__title">发布成功</strong></div>
+        <div class="weui-dialog__bd">您在寻找一位钢琴老师，愿意付出500佣金。</div>
+        <div class="weui-dialog__ft">
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default js_cancle">取消</a>
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary js_pay">微信支付</a>
+        </div>
+    </div>
+</div>
+    </script>
+<script type="text/javascript" src="../js/assets/jquery2.1.4.js"></script>
+<script type="text/javascript" src="../js/assets/sea.min.js"></script>
+<script type="text/javascript" src="../js/common/sea.config.js"></script>
+<script type="text/javascript">
+    seajs.use('../js/app/newPublish.js');
+</script>
+
+</body>
+</html>

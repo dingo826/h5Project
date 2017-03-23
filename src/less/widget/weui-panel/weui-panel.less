@@ -1,0 +1,61 @@
+@import "../../base/fn";
+
+
+.weui-panel {
+    background-color: #FFFFFF;
+    margin-top: 10px;
+    &:first-child {
+        margin-top: 0;
+    }
+
+    position: relative;
+    overflow: hidden;
+    &:before {
+        .setTopLine(@weuiLineColorLight);
+    }
+    &:after {
+        .setBottomLine(@weuiLineColorLight);
+    }
+}
+.weui-panel.weui-panel__bg {
+    background: @weuiBgColorDefault;
+}
+
+.weui-panel__hd {
+    padding: 14px 15px 10px;
+    color: @weuiTextColorTitle;
+    font-size: 13px; font-weight: bold;
+    position: relative;
+    &:after {
+        .setBottomLine(@weuiLineColorLight);
+        left: 15px;
+    }
+}
+.weui-panel__br {
+    padding: 0 15px;
+    div {
+        height: 1px;
+        border-top: 1px solid #e5e5e5;
+        color: #e5e5e5;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleY(.5);
+        transform: scaleY(.5);
+    }
+}
+
+
+.weui-panel__ft.btn__ft {
+    padding: 10px 15px;
+    text-align: right;
+    
+}
+.weui-panel__ft.center {
+    padding-bottom: 15px;
+    text-align: center;
+    
+}
+.weui-panel__ft.btn__ft .weui-btn + .weui-btn {
+    margin-top: 0;
+}
+

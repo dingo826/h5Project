@@ -1,0 +1,68 @@
+<html>
+<head>
+	<title>我的发布</title>
+	<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="format-detection" content="telephone=no" />
+	<link rel="stylesheet" type="text/css" href="../style/index.css">
+</head>
+<body>
+	<div class="weui-tab">
+	    <div class="weui-navbar">
+	        <div class="weui-navbar__item weui-bar__item_on" data-status=''>
+	            全部
+	        </div>
+	        <div class="weui-navbar__item" data-status='2'>
+	            已完成
+	        </div>
+	        <div class="weui-navbar__item" data-status='0'>
+	            已取消
+	        </div>
+	    </div>
+	    <div class="weui-tab__panel js-panel">   
+	    	<div class="js-wrapper"></div>
+	    </div>
+	</div>
+    <script type="text/template" id="listTpl">
+        {{~it:v:index}}
+        <div class="weui-panel">
+            <div class="weui-panel__bd">
+                <div class="weui-media-box">
+                    <h4 class="weui-media-box__title">
+                        {{=v.title}}
+                        {{? v.commissionNumber != 0 }}
+                        <i>{{=v.commissionNumber}}元</i>
+                        {{?}}
+                    </h4>
+                    <time class="weui-media-box__time">{{=v.createTime.split(' ')[0]}}</time>
+                    <p class="weui-media-box__desc">{{=v.demandContent}}
+                    </p>
+                </div>
+            </div>
+            <div class="weui-panel__br"><div></div></div>
+            <div class="weui-panel__ft btn__ft">
+                {{? v.status == 2 }}
+                <a href="commissionList.html?demandId={{=v.id}}" class="weui-btn weui-btn_mini weui-btn_default ">查看佣金</a>
+                {{?? v.status == 1}}
+                <a href="javascript:;" data-id="{{=v.id}}" class="weui-btn weui-btn_mini weui-btn_default js_publishCancle">取消发布</a>
+                {{? }}
+                <a href="publihView.html?id={{=v.id}}" class="weui-btn weui-btn_mini weui-btn_primary">
+                    查看推荐内容
+                    {{? v.recommendCount != 0}}
+                    <span class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">{{=v.recommendCount}}</span>
+                    {{? }}
+                </a>
+            </div>
+        </div>
+        {{~}}
+    </script>
+<script type="text/javascript" src="../js/assets/jquery2.1.4.js"></script>
+<script type="text/javascript" src="../js/assets/sea.min.js"></script>
+<script type="text/javascript" src="../js/common/sea.config.js"></script>
+<script type="text/javascript">
+    seajs.use('../js/app/publishList.js');
+</script>
+</body>
+</html>

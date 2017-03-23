@@ -1,0 +1,51 @@
+<html>
+<head>
+	<title>查看佣金</title>
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="HandheldFriendly" content="true" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="format-detection" content="telephone=no" />
+	<link rel="stylesheet" type="text/css" href="../style/index.css">
+</head>
+<body>
+<div class="weui-panel__bd">
+    <div class="weui-media-box weui-media-box_small-appmsg">
+        <div class="weui-cells js-view">
+            
+        </div>            
+    </div>
+</div>
+<script type="text/template" id="listTpl">
+        {{~it:v:index}}
+            <div class="weui-cell weui-cell_access" >
+                <div class="weui-cell__bd">
+                    <p>{{=v.userName}}</p>
+                </div>
+                <div class="weui-cell__bd">
+                    <p class="center">
+                    {{? v.type == 1}}
+                        中标
+                    {{?? v.type == 2}}
+                        靠谱
+                    {{?? v.type == 3}}
+                        谢谢
+                    {{?? v.type == 4}}
+                        打Tag
+                    {{?}}
+                    </p>
+                </div>
+                <div class="weui-cell__bd">
+                    <p class="center">{{=v.commissionNumber}}</p>
+                </div>
+            </div>
+        {{~}}
+    </script>
+<script type="text/javascript" src="../js/assets/jquery2.1.4.js"></script>
+<script type="text/javascript" src="../js/assets/sea.min.js"></script>
+<script type="text/javascript" src="../js/common/sea.config.js"></script>
+<script type="text/javascript">
+    seajs.use('../js/app/commissionList.js');
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<html>
+<head>
+	<title>我的发布</title>
+	<!--include "../tragment/meta.html"-->
+	<link rel="stylesheet" type="text/css" href="../style/index.css">
+</head>
+<body>
+	<div class="weui-tab">
+	    <div class="weui-navbar">
+	        <div class="weui-navbar__item weui-bar__item_on">
+	            全部
+	        </div>
+	        <div class="weui-navbar__item">
+	            已完成
+	        </div>
+	        <div class="weui-navbar__item">
+	            已取消
+	        </div>
+	    </div>
+	    <div class="weui-tab__panel">   
+	    	<!--include "../tragment/listTmp.html"-->
+	    	<!--include "../tragment/listTmp.html"-->
+	    </div>
+	</div>
+    <script type="text/template" id="publishTpl">
+    <!--include "../tragment/dPublishCancle.html"-->
+    </script>
+<script type="text/javascript" src="../js/zepto.js"></script>
+<script type="text/javascript" src="../js/doT.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    $('.js_publishCancle').on('click', function(){        
+        var tpl = doT.template($('#publishTpl').html());
+        $('body').append(tpl());
+
+        $('.js_cancle').on('click', function(){
+            
+            $('.js_dialog').hide('slow');
+        });
+    });
+
+});
+</script>
+</body>
+</html>
