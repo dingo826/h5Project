@@ -17,9 +17,10 @@ define(function(require,exports,module) {
 				recommendId: id
 			},
 			listType: 2,
-			callback: function(data, page, totalPage){
+			callback: function(data, page){
 				var tpl = doT.template($('#commentViewTpl').html());
-				if(page == undefined){					
+				
+				if(page == 0){					
 					var tpl = doT.template($('#commentViewTpl').html());
 		 			$('.js_commentwrap').append(tpl(data));
 				}else{

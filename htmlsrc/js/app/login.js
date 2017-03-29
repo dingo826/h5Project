@@ -25,7 +25,7 @@ define(function (require, exports, module) {
 			initPageInfoFun : function(){
 				personInfo = localDB.get('personInfo');
 				
-				if(personInfo == null){
+				/*if(personInfo == null){
 					Fun.fnLoginAjax(openId).then(function(res){
 						if(res.user){
 	                    	personInfo = res.user;
@@ -37,7 +37,7 @@ define(function (require, exports, module) {
 					});
 				}else{
 					window.location.href = '../viewsmy.html';
-				}
+				}*/
             },
             fnLoginAjax: function(id){
             	return new Promise(function (resolve, reject) {

@@ -179,3 +179,6 @@ span.status3 {
 .releaseStatus2 {
 	background-image: url('img/icon_suc.png');
 }
+.crumb {
+	padding: 10px;
+}

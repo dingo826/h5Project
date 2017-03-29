@@ -24,7 +24,7 @@ define(function (require, exports, module) {
         }
     });
     (function isLogin(){
-       /* var personInfo = localDB.get('personInfo');
+        /*var personInfo = localDB.get('personInfo');
         if(personInfo == null){
             window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2039ed060d264454&redirect_uri=http%3A%2F%2Fblackdragon.tunnel.qydev.com%2Fwechat%2FgetOpenId&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect&url='
         }*/
@@ -184,35 +184,59 @@ define(function (require, exports, module) {
     exports.ajax = ajax;
 
     exports.listAjax = function(opts){
-        var options = {},
+        var options = {
+            listType: 1
+        },
             param = {
                 size: 10,
                 page: 0
             }
         $.extend(options, opts);
         $.extend(options.param, param);
-        var targetPage = options.param.page || 0;
+
+        var targetPage = options.param.page || 0,
+            total;
 
         _fnLoad();
         function _fnLoad(page){
             options.param.page = page;
             _ajax().then(function(res){
-                console.log(res)
-                options.callback(res);
+                total = Math.ceil(res.total / options.param.size) - 1;      
+                options.callback(res,targetPage);
+                var html;
+                if(targetPage > total){
+                    html = '<div class="weui-loadmore">'+
+                                '<i class="weui-loading"></i>'+
+                                '<span class="weui-loadmore__tips">正在加载</span>'+
+                            '</div>'
+                }else{
+                    html = '<div class="weui-loadmore weui-loadmore_line">' +
+                                '<span class="weui-loadmore__tips">暂无数据</span>' +
+                            '</div>'
+                }
+                $('.js-wrapper').append(html);
             });
         }
 
             //是否最低端，或者加载更多显示
             //判断是tab类型，还是window类型
             //
-        var $obj = $('.js-panel')
+        if(options.listType == 1){
+            var $obj = $('.js-panel');
+        }else if(options.listType == 2){
+            var $obj = $(window);
+        }
+        
+      
         $obj.on('scroll', function(){
-            console.log(1)
             var scrollTop = $obj.scrollTop();
             var scrollHeight = $("#wrapper").height();
             var windowHeight = $obj.height();
             if (scrollHeight - scrollTop - windowHeight < 50) {
-                _fnLoad(++targetPage);
+                if(targetPage < total){
+                    $('.weui-loadmore').remove();
+                    _fnLoad(++targetPage);
+                }
             }
         });
         function _ajax(){

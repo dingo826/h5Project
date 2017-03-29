@@ -18,7 +18,7 @@
                 <div class="weui-media-box__hd">
                     <div class="ask">问</div>
                 </div>
-                <div class="weui-media-box__bd">
+                <div class="weui-media-box__bd posR">
                     <h4 class="weui-media-box__title">
                         {{=it.demand.title}}
                         {{? it.demand.commissionNumber != 0}}
@@ -27,6 +27,9 @@
                         </h4>
                     <time class="weui-media-box__time">{{=it.demand.createTime.split(' ')[0]}}</time>
                     <p class="weui-media-box__desc">{{=it.demand.demandContent}}</p>
+                    {{? it.demand.status == 0 || it.demand.status == 2}}
+                        <i class="releaseStatus{{=it.demand.status}}"></i>
+                    {{?}}
                 </div>
             </a>
             {{? it.recommend != null}}
@@ -49,12 +52,7 @@
                     </p>
                 </div>
             </a>
-            {{? it.demand.status == 0 }}
-                    已取消
-            {{?}}
-            {{? it.demand.status == 2 }}
-                已完成
-            {{?}}
+            
             
             {{? it.recommend.status == 0}}
             <div class="weui-media-box weui-media-box_appmsg js-pg">
