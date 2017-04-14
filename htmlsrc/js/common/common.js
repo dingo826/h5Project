@@ -30,6 +30,7 @@ define(function (require, exports, module) {
         }*/
     })();
     var domain = 'http://172.16.20.103:7080';
+    //var domain = 'http://xiaoliang.tunnel.qydev.com'
     //方法加载中的等待图像
     function loading() {
         var dialog = '<div class="loading-page">' +
@@ -121,7 +122,6 @@ define(function (require, exports, module) {
         if (isLoading === true) {
             loadingAction = loading();
         }
-        
         return $.ajax({
             type: type,
             data: data,
@@ -185,12 +185,13 @@ define(function (require, exports, module) {
 
     exports.listAjax = function(opts){
         var options = {
-            listType: 1
-        },
+                listType: 1
+            },
             param = {
                 size: 10,
                 page: 0
-            }
+            },
+            isLoad = false;
         $.extend(options, opts);
         $.extend(options.param, param);
 
@@ -198,23 +199,35 @@ define(function (require, exports, module) {
             total;
 
         _fnLoad();
-        function _fnLoad(page){
-            options.param.page = page;
+        function _fnLoad(page){ 
+            
+            var page = page || 0;       
+            console.log(page);
+            console.log(options.param.page)
             _ajax().then(function(res){
-                total = Math.ceil(res.total / options.param.size) - 1;      
-                options.callback(res,targetPage);
-                var html;
-                if(targetPage > total){
-                    html = '<div class="weui-loadmore">'+
-                                '<i class="weui-loading"></i>'+
-                                '<span class="weui-loadmore__tips">正在加载</span>'+
-                            '</div>'
-                }else{
-                    html = '<div class="weui-loadmore weui-loadmore_line">' +
-                                '<span class="weui-loadmore__tips">暂无数据</span>' +
-                            '</div>'
+                if(res.status == 'SUCCESS'){
+                    total = Math.ceil(res.total / options.param.size) - 1;   
+                    jQuery.Deferred().done(function() {
+                        options.callback(res, page);
+                    }, function() {
+                        console.log(page)
+                        var html;
+                        if(page < total){
+                            console.log('正在加载page')
+                            isLoad = true;
+                            html = '<div class="weui-loadmore js_loadmore">'+
+                                        '<i class="weui-loading"></i>'+
+                                        '<span class="weui-loadmore__tips">正在加载</span>'+
+                                    '</div>'
+                        }else{
+                            html = '<div class="weui-loadmore weui-loadmore_line">' +
+                                        '<span class="weui-loadmore__tips">暂无数据</span>' +
+                                    '</div>'
+                        }
+                        $('.js-wrapper').append(html);   
+                    }).resolve();
                 }
-                $('.js-wrapper').append(html);
+                
             });
         }
 
@@ -230,11 +243,11 @@ define(function (require, exports, module) {
       
         $obj.on('scroll', function(){
             var scrollTop = $obj.scrollTop();
-            var scrollHeight = $("#wrapper").height();
+            var scrollHeight = $('.js-wrapper').height();
             var windowHeight = $obj.height();
             if (scrollHeight - scrollTop - windowHeight < 50) {
-                if(targetPage < total){
-                    $('.weui-loadmore').remove();
+                if(targetPage < total && isLoad){
+                    $('.js_loadmore').remove();
                     _fnLoad(++targetPage);
                 }
             }
@@ -252,7 +265,48 @@ define(function (require, exports, module) {
             });
             
         }
+    }
 
 
+    //微信授权
+    exports.initWxConfig = function (wx) {
+        function randomString(len) {
+            len = len || 32;
+            var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var maxPos = chars.length;
+            var str = '';
+            for (var i = 0; i < len; i++) {
+                str += chars.charAt(Math.floor(Math.random() * maxPos));
+            }
+            return str;
+        }
+        var timestamp = Math.round(new Date().getTime() / 1000);
+        var nonceStr = randomString(32),
+            url = window.location.href;
+
+       
+       $.ajax({
+            url: 'http://blackdragon.tunnel.qydev.com/wechat/getSignature?timestamp='+timestamp+'&nonce=' + nonceStr+'&url=' + url,
+            type: 'get',
+            success: function (res) {
+            
+                wx.config({
+                    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    appId: 'wx2039ed060d264454', // 必填，公众号的唯一标识
+                    timestamp: timestamp, // 必填，生成签名的时间戳
+                    nonceStr: nonceStr, // 必填，生成签名的随机串
+                    signature: res,// 必填，签名，见附录1
+                    jsApiList: [
+                        'chooseImage',
+                        'uploadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                });
+                wx.ready(function () {
+                    /*wx.error(function (res) {
+                        alert(res.errMsg);
+                    });*/
+                }); 
+                
+            }
+        })             
     }
 });

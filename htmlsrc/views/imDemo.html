@@ -1,0 +1,213 @@
+<html>
+<head>
+	<title>im聊天</title>
+	<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="format-detection" content="telephone=no" />
+	<link rel="stylesheet" type="text/css" href="../style/index.css">
+    <style>
+        body.auth { opacity: 0; }
+        .chat-scroller{
+            padding-top:0;
+        }
+        .goods-detail-container {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            background-color: #fff;
+            text-align: center;
+            margin-top:10px;
+        }
+        .goods-detail-container .goods-detail{
+            position: relative;
+        }
+        .goods-detail-container .goods-detail .goods-img{
+            width: 90px;
+            height: 90px;
+            position: absolute;
+        }
+        .goods-detail-container .goods-detail .goods-info{
+            height: 90px;
+            position: relative;
+            margin-left:100px;
+        }
+        .goods-detail-container .goods-detail .goods-info .goods-name{
+            font-size: 14px;
+            text-align: left;
+        }
+        .goods-detail-container .goods-detail .goods-info .sale-price{
+            color: #FD3544;
+            font-size: 14px ;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        .goods-detail-container .goods-detail .goods-info .sale-price em{
+            font-size: 20px;
+        }
+        .goods-detail-container .goods-detail .goods-info .sale-price s{
+            color: #ccc;
+            padding-left: 10px;
+        }
+        .goods-detail-container .send-goods-url{
+            color: #FD3544;
+            display: inline-block;
+            border: 1px solid #FD3544;
+            border-radius:2px ;
+            padding: 5px 20px;
+            margin-top:10px;
+        }
+        .chat-goods > .content img{
+            height: 68px;
+        }
+        .chat-goods{
+            background-color: #fff;
+            padding: 10px;
+        }
+        .chat-goods > .content{
+            -webkit-align-items: flex-start;
+            align-items: flex-start;
+        }
+    </style>
+</head>
+<body>
+<div class="wxauth">
+    <script type="text/html" id="tpl-goods">
+        <div class="chat-goods" data-brandspuid="{{= data.brandSpuId}}">
+            <div class="title">{{= data.title}}</div>
+            <div class="content">
+                <img src="{{= data.imgSrc }}" alt=""/>
+                <span class="sale-price">&yen;{{= data.salePrice }}</span>
+                <span class="suggest-price">&yen;{{= data.suggestPrice }}</span>
+            </div>
+        </div>
+    </script>
+    <script type="text/html" id="tpl-distribute-goods">
+        <div
+                class="chat-goods"
+                data-brandspuid="{{= data.brandSpuId}}"
+                data-querystring_distribute_goods="{{= data.querystringDistributeGoods}}">
+
+            <div class="title">{{= data.title}}</div>
+            <div class="content">
+                <img src="{{= data.imgSrc }}" alt=""/>
+                <span class="sale-price">&yen;{{= data.salePrice }}</span>
+                <span class="suggest-price">&yen;{{= data.suggestPrice }}</span>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/html" id="tpl-distribute-share">
+        <div class="chat-share"
+             data-querystring_distribute_share="{{= data.querystringDistributeShare}}">
+            <img src="{{= data.imgSrc }}" alt="">
+            <p>
+                {{= data.title }}
+            </p>
+        </div>
+    </script>
+
+    <script type="text/html" id="tpl-full-discount">
+        <div class="chat-full-discount" 
+             data-querystring_full_discount="{{= data.querystringFullDiscount}}">
+            <p class="chat-full-discount-title">
+                {{= data.title }}
+            </p>
+            <p class="chat-full-discount-time">
+                <em>活动时间: </em>
+            </p>
+            <p class="chat-full-discount-time">
+                <span>{{= data.beginDate}}</span>
+                <i> - </i>
+                <span>{{= data.endDate }}</span>
+            </p>
+            <div class="chat-full-discount-img-container">
+                <img src="{{= data.imgSrc }}" alt="">
+            </div>
+        </div>
+    </script>
+
+    <script type="text/html" id="tpl-chat-info-user">
+        <li class="chat-info-item chat-info-item-user">
+            <div class="chat-info-item-content">
+                {{- data.contentHtml }}
+            </div>
+            <div class="chat-info-item-head-img">
+                <img src="{{= data.headImgSrc || '${ctxPath}/images/daogoumoren.png' }}" alt="">
+            </div>
+        </li>
+    </script>
+
+    <script type="text/html" id="tpl-chat-info-guider">
+        <li class="chat-info-item chat-info-item-guider">
+            <div class="chat-info-item-head-img">
+                <img src="{{= data.headImgSrc || '${ctxPath}/images/daogoumoren.png' }}" alt="">
+            </div>
+            <div class="chat-info-item-content">
+                {{- data.contentHtml }}
+            </div>
+        </li>
+    </script>
+
+    <div class="page page-chat-dialogue">
+        <div class="chat-scroll-wrapper">
+            <ul class="chat-scroller"></ul>
+            <div class="chat-loading-pull-down">
+                <span class="img-container">
+                    <img src="../images/loading4.gif" alt=""/>
+                </span>
+                <span>
+                    请稍等, 消息正在加载中哦！
+                </span>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="chat-nav">
+                <div class="chat-input">
+                    <input type="text" id="input">
+                </div>
+                <div class="chat-btn-container">
+                    <span class="chat-btn chat-btn-expression">
+                        <!-- 表情 -->
+                        <img src="../images/guide-contact/chat-btn-01.png" alt=""/>
+                    </span>
+                    <span class="chat-btn chat-btn-add">
+                    <!-- 增加 -->
+                        <img src="../images/guide-contact/chat-btn-02.png" alt=""/>
+                        <em class="chat-send hide">发送</em>
+                    </span>
+                </div>
+            </div>
+        </footer>
+
+        <div class="tab-content footer-tab-content">
+            <div class="tab-content-item wx-func-container">
+                <ul>
+                    <li class="wx-pick-img">
+                        <img src="../images/dialogue_13.jpg" alt="">
+                        <p>选择图片</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content-item swiper-container">
+                <div class="swiper-wrapper">
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <div class="cc-cover"></div>
+        <div class="cc-modal"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/assets/jquery2.1.4.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+<script type="text/javascript" src="../js/assets/sea.min.js"></script>
+<script type="text/javascript" src="../js/common/sea.config.js"></script>
+<script type="text/javascript">
+    seajs.use('../js/app/newPublish.js');
+</script>
+
+</body>
+</html>

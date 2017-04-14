@@ -60,7 +60,18 @@
 <script type="text/javascript" src="../js/assets/sea.min.js"></script>
 <script type="text/javascript" src="../js/common/sea.config.js"></script>
 <script type="text/javascript">
-    seajs.use('../js/app/friendList.js');
+	var key = 'jaIc2eyFOnKSFhp735JSuNPOi';
+	 $.ajax({
+        type: "post",
+        dataType: "json",
+        url: 'https://www.worldcoinindex.com/apiservice/json?key={'+key+'}',
+
+        success: function (data) {
+           console.log(data)
+        }
+    });
+
+   // seajs.use('../js/app/friendList.js');
 </script>
 </body>
 </html>

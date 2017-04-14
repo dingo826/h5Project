@@ -47,7 +47,19 @@ define(function (require, exports, module) {
 		        });
             }
 		},
-		events: function(){}
+		events: function(){
+			$('body').on('click', '.js-end', function(){
+				var tpl = doT.template($('#pickerTpl').html());
+			 	$('body').append(tpl());
+			}).on('click', '#weui-picker-confirm', function(){
+				$('.weui-mask').addClass('weui-animate-fade-out');
+				$('.weui-picker').addClass('weui-animate-slide-down');
+				setTimeout(function(){
+					$('.picker-wrap').remove();
+				},1000);
+				
+			});
+		}
 	};
 	pageJson.init();
 });

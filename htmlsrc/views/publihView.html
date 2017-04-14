@@ -25,6 +25,7 @@
                 {{?}}
                 </h4>
                 <time class="weui-media-box__time">{{=it.createTime.split(' ')[0]}}</time>
+                <time class="weui-media-box__time red">距离结束还有5小时</time>
                 <p class="weui-media-box__desc">{{=it.demandContent}}</p>
                 {{? it.status == 0 || it.status == 2}}
                     <i class="releaseStatus{{=it.status}}"></i>
@@ -34,16 +35,16 @@
         
     </script>
     <script type="text/template" id="viewListTpl">
-        <div class="weui-panel__hd">全部推荐详情</div>
+        <div class="weui-panel__hd">全部回答答案</div>
         <div class="weui-media-box ">
         {{? it.length == 0}}
         <p class="weui-media-box__desc">
-        暂无推荐详情
+        暂无答案详情
         </p>
         {{?}}
         {{~it:v:index}}
-            <div href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
-                <div class="weui-media-box__hd">
+            <div href="javascript:void(0);" class=" weui-media-box_appmsg">
+                /*<div class="weui-media-box__hd">
                     <img class="weui-media-box__thumb" 
                     {{? v.headImgUrl == null || v.headImgUrl == ''}}
                     src="../images/user.jpg"
@@ -51,10 +52,10 @@
                     src="{{=v.headImgUrl}}"
                     {{?}}
                     alt="">
-                </div>
+                </div>*/
                 <div class="weui-media-box__bd">
                     <h4 class="weui-media-box__title">
-                        {{=v.recommendUserName}}
+                       回答者{{=index+1}}:{{=v.recommendUserName}}
                         {{? v.status == 1 }}
                             <span class="status1">中标</span>
                         {{?}}
@@ -67,7 +68,7 @@
                         <em data-title={{=v.id}}>{{=v.createTime.split(' ')[0]}}</em></h4>
                     <p class="weui-media-box__desc">{{=v.recommendContent}}</p>
                     <div class="weui-media-box__ft">
-                        <a href="publishViewComment.html?recommendId={{=v.id}}&&demandId={{=v.demandId}}">实时评论>></a>
+                        <a href="publishViewComment.html?recommendId={{=v.id}}&&demandId={{=v.demandId}}">实时问答>></a>
                     </div>                
                 </div>            
             </div>

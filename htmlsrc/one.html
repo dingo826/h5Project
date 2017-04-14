@@ -1,7 +1,40 @@
-<script type="text/javascript">
-	var personInfo = {}
-	if(personInfo){
-		window.location.href= 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2039ed060d264454&redirect_uri=http%3A%2F%2Fblackdragon.tunnel.qydev.com%2Fwechat%2FgetOpenId&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
-	}
-	
-</script>
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+    </body>
+    <!-- IE8及以下支持JSON -->
+    <!--[if lt IE 9]>
+        <script src="https://g.alicdn.com/aliww/ww/json/json.js" charset="utf-8"></script>
+    <![endif]-->
+    <!-- 自动适配移动端与pc端 -->
+    <!--script src="https://g.alicdn.com/aliww/??h5.imsdk/2.1.5/scripts/yw/wsdk.js,h5.openim.kit/0.4.0/scripts/kit.js?mobile=1" charset="utf-8"></script-->
+    <script src="https://g.alicdn.com/aliww/h5.openim.sdk/1.0.6/scripts/wsdk.js"></script>
+    <script>
+    	/*var options = {
+    		uid: '00001',
+            appkey: 23748930,
+            credential: '123456',
+            touid: '00002'
+    	}
+        window.onload = function(){
+            WKIT.init(options);
+        }*/
+
+        var sdk = new WSDK();
+        sdk.Base.login({
+            uid:'00001',
+            appkey: 23748930,
+            credential: '123456',
+            timeout: 4000,
+            success: function(data){
+               // {code: 1000, resultText: 'SUCCESS'}
+               console.log('login success', data);
+            },
+            error: function(error){
+               // {code: 1002, resultText: 'TIMEOUT'}
+               console.log('login fail', error);
+            }
+        });
+    </script>
+</html>

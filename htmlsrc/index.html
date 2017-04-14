@@ -46,7 +46,20 @@
 			</li>
 		</ul>
 	</li>
+	<li>
+		<a href="views/imDemo.html">聊天</a>
+	</li>
 </ul>
-
+<script type="text/javascript" src="js/assets/jquery2.1.4.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.ajax({ 
+		url: "1.json", 
+		success: function(data){
+        	console.log(data)
+      	}
+    });
+});
+</script>
 </body>
 </html>
